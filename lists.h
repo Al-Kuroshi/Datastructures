@@ -79,6 +79,7 @@ public:
 	int search(T x);                            // return index to a node with value x
 	int DeleteNode(T x);                        //  delete node with value x
 	void print(void);                           //  display list values 
+	void print(void(*print)(T));
 	Node<T>* getHead() { return head; }
 	void setHead(Node<T>* ptr) { head = ptr; }
 	Node<T>* getTail() { return tail; }
@@ -282,6 +283,26 @@ inline void SLinkedList<T>::print(void)
 		print = print->next;
 	}
 }
+
+
+template<typename T>
+inline void SLinkedList<T>::print(void(*print)(T))
+{
+	cout << "\n";
+	if (head == NULL)
+	{
+		cout << "List is empty\n"; return;
+	}
+	Node<T>* print_this = head;
+	while (print_this != NULL)
+	{
+		print(print_this);
+		print = print_this->next;
+	}
+}
+
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
