@@ -18,8 +18,8 @@ struct SL_Node {
 	T data;
 	SL_Node<T>* next;
 
-	SL_Node() :data(T()), next(nullptr)																			{	}
-	SL_Node(T data) :data(data), next(nullptr)																	{	}
+	SL_Node() :data(T()), next(nullptr)											{	}
+	SL_Node(T data) :data(data), next(nullptr)										{	}
 };
 
 /// <summary>
@@ -32,8 +32,8 @@ struct DL_Node {
 	DL_Node<T>* next;
 	DL_Node<T>* prev;
 
-	DL_Node() :data(T()), next(nullptr), prev(nullptr)															{	}
-	DL_Node(T data) : data(data), next(nullptr), prev(nullptr)													{	}
+	DL_Node() :data(T()), next(nullptr), prev(nullptr)									{	}
+	DL_Node(T data) : data(data), next(nullptr), prev(nullptr)								{	}
 };
 
 
@@ -59,20 +59,20 @@ namespace sl
 		using pointer = DataT*;
 
 
-		explicit SL_List_Iterator(NodePtr<DataT> start = nullptr) : current(start)									{	}
-		SL_List_Iterator(const SL_List_Iterator& src) : current(src.current)										{	}
+		explicit SL_List_Iterator(NodePtr<DataT> start = nullptr) : current(start)					{	}
+		SL_List_Iterator(const SL_List_Iterator& src) : current(src.current)						{	}
 
-		reference operator*()  const																				{ return current->data; }
-		pointer operator->() const																					{ return &(operator*()); }
+		reference operator*()  const											{ return current->data; }
+		pointer operator->() const											{ return &(operator*()); }
 
-		bool operator==(SL_List_Iterator const& rhs) const															{ return current == rhs.current; }
-		bool operator!=(SL_List_Iterator const& rhs) const															{ return current != rhs.current; }
+		bool operator==(SL_List_Iterator const& rhs) const								{ return current == rhs.current; }
+		bool operator!=(SL_List_Iterator const& rhs) const								{ return current != rhs.current; }
 
-		SL_List_Iterator& operator=(SL_List_Iterator const& src)													{ if (this == &src) { return *this; } current = src; return *this; }
+		SL_List_Iterator& operator=(SL_List_Iterator const& src)							{ if (this == &src) { return *this; } current = src; return *this; }
 
-		SL_List_Iterator& operator++()																				{ current = current->next; return *this; }
+		SL_List_Iterator& operator++()											{ current = current->next; return *this; }
 
-		SL_List_Iterator operator++(int)																			{ SL_List_Iterator preincremented = *this; current = current->next; return preincremented; }
+		SL_List_Iterator operator++(int)										{ SL_List_Iterator preincremented = *this; current = current->next; return preincremented; }
 
 	private:
 		NodePtr<DataT> current;
@@ -90,19 +90,19 @@ namespace sl
 
 
 
-		explicit const_SL_List_Iterator(NodePtr<DataT> start = nullptr) : current_node_ptr(start)					{	}
-		const_SL_List_Iterator(const const_SL_List_Iterator& src) : current_node_ptr(src.current_node_ptr)			{	}
+		explicit const_SL_List_Iterator(NodePtr<DataT> start = nullptr) : current_node_ptr(start)			{	}
+		const_SL_List_Iterator(const const_SL_List_Iterator& src) : current_node_ptr(src.current_node_ptr)		{	}
 
-		const reference operator*()  const																			{ return current_node_ptr->data; }
-		const pointer operator->() const																			{ return &(operator*()); }
+		const reference operator*()  const										{ return current_node_ptr->data; }
+		const pointer operator->() const										{ return &(operator*()); }
 
-		bool operator==(const const_SL_List_Iterator const& rhs) const												{ return current_node_ptr == rhs.current_node_ptr; }
-		bool operator!=(const const_SL_List_Iterator const& rhs) const												{ return current_node_ptr != rhs.current_node_ptr; }
+		bool operator==(const const_SL_List_Iterator const& rhs) const							{ return current_node_ptr == rhs.current_node_ptr; }
+		bool operator!=(const const_SL_List_Iterator const& rhs) const							{ return current_node_ptr != rhs.current_node_ptr; }
 
 
-		const_SL_List_Iterator& operator++()																		{ current_node_ptr = current_node_ptr->next; return *this; }
+		const_SL_List_Iterator& operator++()										{ current_node_ptr = current_node_ptr->next; return *this; }
 
-		const_SL_List_Iterator operator++(int)																		{ const_SL_List_Iterator preincremented = *this; current_node_ptr = current_node_ptr->next; return preincremented; }
+		const_SL_List_Iterator operator++(int)										{ const_SL_List_Iterator preincremented = *this; current_node_ptr = current_node_ptr->next; return preincremented; }
 
 	private:
 		NodePtr<DataT> current_node_ptr;
@@ -129,29 +129,29 @@ namespace dl
 		using reference = DataT&;
 		using pointer = DataT*;
 
-		explicit DLL_Iterator(NodePtr<DataT> start = nullptr) : current_node(start)									{	}
-		DLL_Iterator(const DLL_Iterator& src) : current_node(src.current_node)										{	}
+		explicit DLL_Iterator(NodePtr<DataT> start = nullptr) : current_node(start)					{	}
+		DLL_Iterator(const DLL_Iterator& src) : current_node(src.current_node)						{	}
 
-		reference operator*()  const																				{ return current_node->data; }
-		pointer operator->() const																					{ return &(operator*()); }
+		reference operator*()  const											{ return current_node->data; }
+		pointer operator->() const											{ return &(operator*()); }
 
-		bool operator==(DLL_Iterator const& rhs) const																{ return current_node == rhs.current_node; }
-		bool operator!=(DLL_Iterator const& rhs) const																{ return current_node != rhs.current_node; }
+		bool operator==(DLL_Iterator const& rhs) const									{ return current_node == rhs.current_node; }
+		bool operator!=(DLL_Iterator const& rhs) const									{ return current_node != rhs.current_node; }
 
 
-		DLL_Iterator operator+(int rhs) { for (int i = 0; i < rhs; i++)												{ current_node = current_node->next; } return *this; }
+		DLL_Iterator operator+(int rhs) { for (int i = 0; i < rhs; i++)							{ current_node = current_node->next; } return *this; }
 
-		DLL_Iterator& operator=(DLL_Iterator const& src)															{ if (this == &src) { return *this; }	current_node = src.current_node;	return *this; }
+		DLL_Iterator& operator=(DLL_Iterator const& src)								{ if (this == &src) { return *this; }	current_node = src.current_node; return *this; }
 
-		DLL_Iterator& operator+=(int rhs)																			{ for (int i = 0; i < rhs; i++) { current_node = current_node->next; } return *this; }
+		DLL_Iterator& operator+=(int rhs)										{ for (int i = 0; i < rhs; i++) { current_node = current_node->next; } return *this; }
 
-		DLL_Iterator& operator++()																					{ current_node = current_node->next; return *this; }
+		DLL_Iterator& operator++()											{ current_node = current_node->next; return *this; }
 
-		DLL_Iterator operator++(int)																				{ DLL_Iterator predecremented = *this; current_node = current_node->next; return predecremented; }
+		DLL_Iterator operator++(int)											{ DLL_Iterator predecremented = *this; current_node = current_node->next; return predecremented; }
 		 
-		DLL_Iterator& operator--()																					{ current_node = current_node->prev; return *this; }
+		DLL_Iterator& operator--()											{ current_node = current_node->prev; return *this; }
 
-		DLL_Iterator operator--(int)																				{ DLL_Iterator predecremented = *this; current_node = current_node->prev; return predecremented; }
+		DLL_Iterator operator--(int)											{ DLL_Iterator predecremented = *this; current_node = current_node->prev; return predecremented; }
 
 	private:
 		NodePtr<DataT> current_node;
@@ -167,27 +167,27 @@ namespace dl
 		using reference = DataT&;
 		using pointer = DataT*;
 
-		explicit const_DLL_Iterator(NodePtr<DataT> start = nullptr) : current_node(start)							{	}
-		const_DLL_Iterator(const const_DLL_Iterator& src) : current_node(src.current_node)							{	}
+		explicit const_DLL_Iterator(NodePtr<DataT> start = nullptr) : current_node(start)				{	}
+		const_DLL_Iterator(const const_DLL_Iterator& src) : current_node(src.current_node)				{	}
 
-		const reference operator*()  const																			{ return current_node->data; }
-		const pointer operator->() const																			{ return &(operator*()); }
+		const reference operator*()  const										{ return current_node->data; }
+		const pointer operator->() const										{ return &(operator*()); }
 
-		bool operator==(const_DLL_Iterator const& rhs) const														{ return current_node == rhs.current_node; }
-		bool operator!=(const_DLL_Iterator const& rhs) const														{ return current_node != rhs.current_node; }
+		bool operator==(const_DLL_Iterator const& rhs) const								{ return current_node == rhs.current_node; }
+		bool operator!=(const_DLL_Iterator const& rhs) const								{ return current_node != rhs.current_node; }
 
 
-		const_DLL_Iterator operator+(int rhs)																		{ for (int i = 0; i < rhs; i++) { current_node = current_node->next; } return *this; }
+		const_DLL_Iterator operator+(int rhs)										{ for (int i = 0; i < rhs; i++) { current_node = current_node->next; } return *this; }
 
-		const_DLL_Iterator& operator+=(int rhs)																		{ for (int i = 0; i < rhs; i++){ current_node = current_node->next; } return *this; }
+		const_DLL_Iterator& operator+=(int rhs)										{ for (int i = 0; i < rhs; i++){ current_node = current_node->next; } return *this; }
 
-		const_DLL_Iterator& operator++()																			{ current_node = current_node->next; return *this; }
+		const_DLL_Iterator& operator++()										{ current_node = current_node->next; return *this; }
 
-		const_DLL_Iterator operator++(int)																			{ const_DLL_Iterator predecremented = *this; current_node = current_node->next; return predecremented; }
+		const_DLL_Iterator operator++(int)										{ const_DLL_Iterator predecremented = *this; current_node = current_node->next; return predecremented; }
 
-		const_DLL_Iterator& operator--()																			{ current_node = current_node->prev; return *this; }
+		const_DLL_Iterator& operator--()										{ current_node = current_node->prev; return *this; }
 
-		const_DLL_Iterator operator--(int)																			{ const_DLL_Iterator predecremented = *this; current_node = current_node->prev; return predecremented; }
+		const_DLL_Iterator operator--(int)										{ const_DLL_Iterator predecremented = *this; current_node = current_node->prev; return predecremented; }
 
 	private:
 		NodePtr<DataT> current_node;
